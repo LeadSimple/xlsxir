@@ -10,6 +10,7 @@ defmodule Xlsxir.ParseStyle do
     2,
     3,
     4,
+    7,
     9,
     10,
     11,
