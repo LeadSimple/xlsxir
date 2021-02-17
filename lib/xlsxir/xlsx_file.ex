@@ -216,7 +216,7 @@ defmodule Xlsxir.XlsxFile do
   defp zip_paths_list(worksheet_indexes) do
     worksheet_indexes
     |> Enum.map(fn worksheet_index -> 'xl/worksheets/sheet#{worksheet_index + 1}.xml' end)
-    |> Enum.concat(['xl/styles.xml', 'xl/sharedStrings.xml', 'xl/workbook.xml'])
+    |> Enum.concat(['xl/worksheets/sheet.xml', 'xl/styles.xml', 'xl/sharedStrings.xml', 'xl/workbook.xml'])
   end
 
   defp parse_styles_to_ets(%__MODULE__{styles_xml_file: nil} = xlsx_file), do: xlsx_file
@@ -255,7 +255,7 @@ defmodule Xlsxir.XlsxFile do
   defp get_worksheet(%__MODULE__{} = xlsx_file, index) do
     xml_file =
       Enum.find(xlsx_file.worksheet_xml_files, fn xml_file ->
-        xml_file.name == "sheet#{index + 1}.xml"
+        xml_file.name == "sheet#{index + 1}.xml" || xml_file.name == "sheet.xml"
       end)
 
     case xml_file do

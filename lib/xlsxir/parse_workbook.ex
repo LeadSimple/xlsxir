@@ -23,7 +23,7 @@ defmodule Xlsxir.ParseWorkbook do
             {sheet_id, _} = sheet_id |> to_string |> Integer.parse()
             %{sheet | sheet_id: sheet_id}
 
-          {:attribute, 'id', _, _, rid} ->
+          {:attribute, 'id', _, _, <<"rId", _rest :: binary>> = rid} ->
             "rId" <> rid = rid |> to_string
             {rid, _} = Integer.parse(rid)
             %{sheet | rid: rid}

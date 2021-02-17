@@ -80,12 +80,14 @@ defmodule Xlsxir.Unzip do
           end
         end)
         |> Enum.map(fn ({:zip_file, filename, _, _, _, _}) ->
-          index = filename
+          filename
           |> to_string
           |> String.replace_prefix("xl/worksheets/sheet", "")
           |> String.replace_suffix(".xml", "")
-          |> String.to_integer
-          index - 1
+          |> case do
+            "" -> 0
+            name -> String.to_integer(name) - 1
+          end
         end)
         |> Enum.sort
         {:ok, indexes}
